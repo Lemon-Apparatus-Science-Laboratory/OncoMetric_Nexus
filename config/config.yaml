@@ -3,7 +3,7 @@ volume:
   - tcia: '/tcia'
 
 dataSet:
-  tcia: "The-Chinese-Mammography-Database.tcia" # Has to be in the volume/tcia directory. If provided the collection and patientToBeRemoved will be ignored
+  tcia: "The-Chinese-Mammography-Database.tcia" # Has to be in the volume/tcia directory. If provided the collection will be ignored
   collection: "CMMD"  # https://services.cancerimagingarchive.net/nbia-api/services/v1/getCollectionValues
   patientToBeRemoved: # Range of patients to be removed. Patient to be removed from the dataset based on PatientID/PatientName 
     - 'D1-0001,D1-0004'
