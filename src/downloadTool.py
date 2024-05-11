@@ -64,10 +64,30 @@ def patient_to_be_removed(config):
             for line in lines:
                 if not any(SID in line for SID in SID_list):
                     f.write(line)
+
+def config_read():
+    try:
+        with open('/config/config.yaml', 'r') as f:
+            config = yaml.load(f, Loader=yaml.FullLoader)
+    except FileNotFoundError:
+        print('Config file not found. Set to default values.')
+        config = {}
+    try:
+        config['dataSet']
+    except KeyError:
+        config['dataSet'] = None
+    try:
+        config['dataSet']['tcia']
+    except KeyError:
+        config['dataSet']['tcia'] = None
+    try:
+        config['dataSet']['patientToBeRemoved']
+    except KeyError:
+        config['dataSet']['patientToBeRemoved'] = None
+    return config
     
 def main():
-    with open('/config/config.yaml', 'r') as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
+    config = config_read()
     download_tcia_data(config)
     patient_to_be_removed(config)
 
