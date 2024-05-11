@@ -75,6 +75,7 @@ evaluated by the level of the obtained performances.
 ## Prerequisites
 
 - Python 3.6 or higher
+- WSL2
 - Docker
 - Docker Compose
 
@@ -86,6 +87,9 @@ evaluated by the level of the obtained performances.
 git clone <repository-url>
 cd <repository-name>
 ```
+
+**NOTE**: The following docker compose file will only work on windows machines
+that have the `docker` enabled and using `wsl2` as the backend.
 
 2. Build the Docker image and run using Docker Compose
 
