@@ -7,23 +7,30 @@ import requests
 def download():
     print('Downloading CMMD TCIA...')
     url = 'https://www.cancerimagingarchive.net/wp-content/uploads/The-Chinese-Mammography-Database.tcia'
-    url2 = 'https://www.cancerimagingarchive.net/wp-content/uploads/CMMD_clinicaldata_revision.xlsx'
     try:
         r = requests.get(url, allow_redirects=True)
         open('/tcia/CMMD.tcia', 'wb').write(r.content)
         print('TCIA downloaded.')
-        print('Downloading CMMD clinical data...')
-        r = requests.get(url2, allow_redirects=True)
-        open('/tciaDownload/CMMD_clinicaldata_revision.xlsx', 'wb').write(r.content)
-        print('CMMD clinical data downloaded.')
         return True
     except requests.exceptions.RequestException as e:
         print('Error downloading TCIA data.')
         return False
 
+def download_clinical_data():
+    print('Downloading CMMD clinical data...')
+    url = 'https://www.cancerimagingarchive.net/wp-content/uploads/CMMD_clinicaldata_revision.xlsx'
+    try:
+        r = requests.get(url, allow_redirects=True)
+        open('/tciaDownload/CMMD_clinicaldata_revision.xlsx', 'wb').write(r.content)
+        print('CMMD clinical data downloaded.')
+        return True
+    except requests.exceptions.RequestException as e:
+        print('Error downloading clinical data.')
+        return False
 
 
 def download_tcia_data(config):
+    download_clinical_data()
     if config['dataSet']['tcia']:
         tcia = config['dataSet']['tcia']
         print('Checking TCIA file exist...')
@@ -36,6 +43,7 @@ def download_tcia_data(config):
         else:
             print('TCIA data does not exist.')
             return download()
+        
     else:
         return download()
 
