@@ -69,3 +69,57 @@ Your deliverables shall include:
 
 Note, that while the metrics are part of the deliverables, your work is not
 evaluated by the level of the obtained performances.
+
+# Build and execution instructions
+
+## Prerequisites
+
+- Python 3.6 or higher
+- Docker
+- Docker Compose
+
+## Installation
+
+1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd <repository-name>
+```
+
+2. Build the Docker image and run using Docker Compose
+
+### about config.yaml
+
+- `tcia`: is used to give a tcia file to use instead of letting docker
+image download the data from the website. The `tcia` file should be in the
+  `tcia` directory.
+
+- `patientToBeRemoved`: Range of patients to be removed. Patient to be removed
+from the dataset based on PatientID/PatientName
+
+- If the `config.yaml` file is empty or misconfgured, the docker image will
+use a set of default values.
+  data from the website.
+
+```bash
+docker-compose up
+```
+
+**NOTE**: The mentioned container will download the dataSet from the Cancer
+Imaging Archive website and process the data to be used for the deep learning
+experiments. The `config.yaml` file contains the configuration for the docker
+container.
+
+
+3. Install the required python packages for main code
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Run the main code
+
+```bash
+python ./src/main.py
+```
