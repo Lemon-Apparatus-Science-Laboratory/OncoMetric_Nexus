@@ -7,10 +7,15 @@ import requests
 def download():
     print('Downloading CMMD TCIA...')
     url = 'https://www.cancerimagingarchive.net/wp-content/uploads/The-Chinese-Mammography-Database.tcia'
+    url2 = 'https://www.cancerimagingarchive.net/wp-content/uploads/CMMD_clinicaldata_revision.xlsx'
     try:
         r = requests.get(url, allow_redirects=True)
         open('/tcia/CMMD.tcia', 'wb').write(r.content)
         print('TCIA downloaded.')
+        print('Downloading CMMD clinical data...')
+        r = requests.get(url2, allow_redirects=True)
+        open('/tciaDownload/CMMD_clinicaldata_revision.xlsx', 'wb').write(r.content)
+        print('CMMD clinical data downloaded.')
         return True
     except requests.exceptions.RequestException as e:
         print('Error downloading TCIA data.')
@@ -35,9 +40,10 @@ def download_tcia_data(config):
         return download()
 
 def patient_to_be_removed(config):
-    listPatientsToRemove = config['dataSet']['patientToBeRemoved'] 
-    if not listPatientsToRemove:
+    if not config['dataSet']['patientToBeRemoved']:
         return
+    listPatientsToRemove = config['dataSet']['patientToBeRemoved'] 
+    
     # each item is a pair of range of patient's ID  to be removed
     # We  need to get the Study UID of the patients to be removed and remove them from the TCIA manifest
     manifest = '/tcia/CMMD.tcia'

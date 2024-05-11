@@ -3,7 +3,7 @@ volume:
   - tcia: '/tcia'
 
 dataSet:
-  tcia: "The-Chinese-Mammography-Database.tcia" # Has to be in the volume/tcia directory. otherwise, CMMD automatically sets as  default dataset
-  patientToBeRemoved: # Range of patients to be removed. Patient to be removed from the dataset based on PatientID/PatientName 
-    - 'D1-0001,D1-0004'
-    - 'D2-0001,D2-0004' 
+  tcia: "CMMD.tcia" # The-Chinese-Mammography-Database.tcia Has to be in the volume/tcia directory. otherwise, CMMD automatically sets as  default dataset
+  # patientToBeRemoved: # Range of patients to be removed. Patient to be removed from the dataset based on PatientID/PatientName 
+  #   - 'D1-0001,D1-0004'
+  #   - 'D2-0001,D2-0004' 
