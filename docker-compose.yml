@@ -15,5 +15,4 @@ services:
       - ./tciadownload:/root/Desktop
       - ./tcia:/tcia
       - ./config:/config
-    entrypoint: [ "/opt/nbia-data-retriever/nbia-data-retriever", "/tcia/CMMD.tcia", "-d", "/tciaDownload" ]
     network_mode: host
