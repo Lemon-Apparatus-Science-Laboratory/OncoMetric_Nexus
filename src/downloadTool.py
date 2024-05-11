@@ -1,8 +1,8 @@
 import yaml
 import os
-from tcia_utils import  nbia
+from tcia_utils import nbia
 import requests
-    
+
 
 def download():
     print('Downloading CMMD TCIA...')
@@ -15,6 +15,7 @@ def download():
     except requests.exceptions.RequestException as e:
         print('Error downloading TCIA data.')
         return False
+
 
 def download_clinical_data():
     print('Downloading CMMD clinical data...')
@@ -43,19 +44,20 @@ def download_tcia_data(config):
         else:
             print('TCIA data does not exist.')
             return download()
-        
+
     else:
         return download()
+
 
 def patient_to_be_removed(config):
     if not config['dataSet']['patientToBeRemoved']:
         return
-    listPatientsToRemove = config['dataSet']['patientToBeRemoved'] 
-    
+    listPatientsToRemove = config['dataSet']['patientToBeRemoved']
+
     # each item is a pair of range of patient's ID  to be removed
     # We  need to get the Study UID of the patients to be removed and remove them from the TCIA manifest
     manifest = '/tcia/CMMD.tcia'
-    
+
     uids = nbia.manifestToList(manifest)
     df = nbia.getSeriesList(uids)
     df = df.sort_values(by=['Subject ID'])
@@ -65,13 +67,14 @@ def patient_to_be_removed(config):
         end = item[1]
         df2 = df[df['Subject ID'].between(start, end)]
         SID_list = df2['Series ID'].to_list()
-        
-        with open('/tcia/CMMD.tcia','r') as f:
+
+        with open('/tcia/CMMD.tcia', 'r') as f:
             lines = f.readlines()
-        with open('/tcia/CMMD.tcia','w') as f:
+        with open('/tcia/CMMD.tcia', 'w') as f:
             for line in lines:
                 if not any(SID in line for SID in SID_list):
                     f.write(line)
+
 
 def config_read():
     try:
@@ -93,7 +96,8 @@ def config_read():
     except KeyError:
         config['dataSet']['patientToBeRemoved'] = None
     return config
-    
+
+
 def main():
     config = config_read()
     download_tcia_data(config)
