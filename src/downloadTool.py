@@ -21,7 +21,7 @@ def download_clinical_data():
     url = 'https://www.cancerimagingarchive.net/wp-content/uploads/CMMD_clinicaldata_revision.xlsx'
     try:
         r = requests.get(url, allow_redirects=True)
-        open('/tciaDownload/CMMD_clinicaldata_revision.xlsx', 'wb').write(r.content)
+        open('/root/Desktop/CMMD_clinicaldata_revision.xlsx', 'wb').write(r.content)
         print('CMMD clinical data downloaded.')
         return True
     except requests.exceptions.RequestException as e:
